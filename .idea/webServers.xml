@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="b7b5a1b7-55d4-4f98-978c-6e0758e82536" name="jpplayer" url="http://bsh.su">
+        <fileTransfer host="bsh.su" port="22" privateKey="$USER_HOME$/.ssh/id_rsa" rootFolder="/home/jpplayer" accessType="SFTP" username="jpplayer" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="f8a136e7-3965-4493-b837-928aa8fd03ea" name="root" url="http://bsh.su">
+        <fileTransfer host="bsh.su" port="22" privateKey="$USER_HOME$/.ssh/id_rsa" accessType="SFTP" username="root" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
