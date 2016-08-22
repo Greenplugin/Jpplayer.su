@@ -9,7 +9,7 @@
                 <div class="panel-body">
                     <a href="https://telegram.me/jpllayer_bot?start=this_session_id">logIn</a>
 
-                    <form action="/telegram-api" method="post">
+                    <form action="https://telegram.jpplayer.su/telegram-api/lk23jdsfu_LKkj54cxvb&ihl8-SD9j0hsd" method="post">
                         <input type="text" value="text">
                         <button>send</button>
                     </form>
@@ -18,10 +18,7 @@
                 <div class="panel-heading">log</div>
                 <div class="panel-body">
                     <table>
-                        {{$gg}}
-
-
-                        <pre>
+                       <pre>
                             <?php
                                 foreach ($data as $key => $val){
                                     print_r(json_decode($val['value'],false));

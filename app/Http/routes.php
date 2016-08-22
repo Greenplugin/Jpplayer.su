@@ -12,11 +12,33 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.index');
 });
 
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
-Route::post('/telegram-api', 'TelegramApi@webHook');
-Route::get('/telegram-api/testing', 'TelegramApi@testMessage');
+
+
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('/telegram-api/testing', 'TelegramApi@testMessage');
+    Route::get('/calc', 'TelegramApi@testMessage');
+    Route::get('/profile', 'Profile@show');
+    /*Route::get('/profile', function () {
+        return view('pages.profile');
+    });*/
+
+});
+
+Route::group(['middleware' => ['guest']], function () {
+
+    Route::get('/login', 'UAuth@index');
+    Route::get('/register', 'UAuth@registerIndex');
+    Route::post('/shadow/auth', 'UAuth@telegramAuth');
+
+});
+
+/*Route::get('/home', 'HomeController@index');*/
+Route::get('/telegramx', 'TelegramApi@getWebHook');
+Route::post('/telegram-api/lk23jdsfu_LKkj54cxvbihl8-SD9j0hsd', 'TelegramApi@webHook');
+
