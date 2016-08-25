@@ -24,6 +24,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/telegram-api/testing', 'TelegramApi@testMessage');
     Route::get('/calc', 'TelegramApi@testMessage');
     Route::get('/profile', 'Profile@show');
+
+
+    Route::post('/save/email', 'Profile@saveEmail');
+    Route::post('/save/name', 'Profile@saveName');
     /*Route::get('/profile', function () {
         return view('pages.profile');
     });*/

@@ -394,7 +394,7 @@ main{
         display: flex;
         justify-content: flex-end;
         padding: 7px 0;
-        button{
+        button, a{
           padding: 5px 35px;
           background-color: $green-color;
           font-family: Helvetica Neue;
@@ -402,7 +402,11 @@ main{
           border: 0;
           color: $white-color;
           font-weight: bold;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
+
         button.full-width{
           padding: 5px 20px;
         }
@@ -639,12 +643,14 @@ main{
         font-size: 16px;
       }
     }
-    button{
+    a{
       background-color: $green-color;
+      transition: background 200ms ease-in-out;
       p{
         font-family: "Helvetica Neue";
         color: $white-color;
         margin-top: 5px;
+        transition: background 200ms ease-in-out;
       }
       border: 0;
       height: 100%;
@@ -652,6 +658,12 @@ main{
       img{
         height: 75px;
         width: 75px;
+      }
+      &:hover{
+        background-color: $white-color;
+        p{
+          color: $green-color;
+        }
       }
 
     }
@@ -691,6 +703,28 @@ footer{
 
 .space-between{
   justify-content: space-between !important;
+}
+
+.uk-notify-message{
+  border: 4px solid $white-color;
+  border-radius: 0;
+  color: $white-color;
+  .uk-close{
+    color: $white-color;
+  }
+  div{
+    color: $white-color;
+  }
+}
+
+
+.uk-notify-message-danger{
+  background: $red-color;
+
+}
+
+.uk-notify-message-success{
+  background: $green-color;
 }
 
 /* Remove default checkbox */

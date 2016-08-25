@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="stylesheet" href="css/uikit.min.css">
+  <link rel="stylesheet" href="css/components/notify.min.css">
+  <link rel="stylesheet" href="css/components/notify.almost-flat.min.css">
+
   <link rel="stylesheet" href="css/app.css">
   <script src="js/jquery-3.1.0.min.js"></script>
 </head>
@@ -118,6 +121,7 @@
 
 
 <script src="js/uikit.min.js"></script>
+<script src="js/components/notify.js"></script>
 
 </body>
 </html>

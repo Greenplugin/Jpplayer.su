@@ -9,7 +9,7 @@
           <div class="profile-block form-block">
             <div class="uk-grid grid-no-margin">
               <div class="uk-width-small-1-3 uk-width-medium-1-3 uk-width-large-1-3">
-                <div class="img-profile"></div>
+                <div class="img-profile" style="background-image: url({{Auth::user()->avatar}})"></div>
               </div>
               <div class="uk-width-small-2-3 uk-width-medium-2-3 uk-width-large-2-3">
                 <h3>{{Auth::user()->name}}</h3>
@@ -36,8 +36,8 @@
                   <div class="uk-grid grid-no-margin">
                     <div class="uk-width-1-1">
                       <div class="input-block">
-                        <input required id="defaultpassword1" type="password" value="">
-                        <label for="defaultpassword1">Email / Telegram Id</label>
+                        <input required id="EmailField" type="text" value="{{Auth::user()->email}}">
+                        <label for="EmailField">Email / Telegram Id</label>
                         <span></span>
                       </div>
                     </div>
@@ -45,28 +45,28 @@
                       <div class="uk-grid grid-no-margin">
                         <div class="uk-width-2-3 grid-no-margin">
                           <div class="input-block">
-                            <input required id="newPasswor1d" type="password" value="">
-                            <label for="newPasswor1d">Telegram Username</label>
+                            <input disabled="disabled" id="newPasswor1d" type="text" value="Telegram Username: {{Auth::user()->telegram_username}}">
+                            <label for="newPasswor1d"></label>
                             <span></span>
                           </div>
                           <div class="input-block">
-                            <input required id="confirmPassword1" type="password" value="">
-                            <label for="confirmPassword1">Telegram id</label>
+                            <input disabled="disabled"  id="confirmPassword1" type="text" value="Telegram id: {{Auth::user()->telegram_id}}">
+                            <label for="confirmPassword1"></label>
                             <span></span>
                           </div>
                         </div>
                         <div class="uk-width-1-3 grid-no-margin">
-                          <button>
+                          <a class="uk-flex uk-flex-center uk-flex-middle uk-flex-column" href="#">
                             <img src="img/telegram-logo.png" alt="">
                             <p>Привязать</p>
-                          </button>
+                          </a>
                         </div>
                       </div>
                     </div>
                     <div class="uk-width-1-1 grid-no-margin">
                       <div class="input-block">
-                        <input required id="defaultpassword12" type="password" value="">
-                        <label for="defaultpassword12">Имя</label>
+                        <input required id="NameField" type="text" value="{{Auth::user()->name}}">
+                        <label for="NameField">Имя</label>
                         <span></span>
                       </div>
                     </div>
@@ -97,23 +97,19 @@
               </div>
               <div class="submit-div space-between">
                 <p>
-                  <input type="checkbox" id="test1" />
-                  <label for="test1">Использовать для входа телеграм</label>
+                  <input type="checkbox" id="use-telegram-for-change-password" />
+                  <label data-href="" for="use-telegram-for-change-password">Использовать telegram </label>
                 </p>
-                <button>
-                  Вход
-                </button>
+                <a id="change-password-button">
+                  Сменить пароль
+                </a>
               </div>
             </form>
             <article>
-              <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab cum illum incidunt
-                nesciunt odit ratione voluptates voluptatibus? Blanditiis, porro, sequi. Alias
-                hic laborum optio quaerat quia repudiandae sunt vel voluptates?
+              <div>
+                Для того чтобы сменить пароль заполните поля выше, если Вы регистрировались через telegram - поставьте галочку "Использовать telegram для смены пароля", введите новый пароль и нажмите кнопку "сменить пароль" Вас перекинет на сайт telegram, если Вы используете веб-версию telegram достаточно просто нажать "start" на месте чата бота, если вы используете мобильную или пк-версию telegram браузер предложит запустить приложение, согласитесь, откроется чат с ботом в telegram  где так же нужно нажать "start", на этом процедура смены пароля завершена.
               </div>
-              <div>A delectus deserunt, ex expedita iste, maxime nemo pariatur quae quaerat qui,
-                sunt tenetur vel veritatis. Doloremque minus modi numquam provident suscipit.
-                Animi corporis cupiditate ducimus eaque laboriosam laborum quasi.
-              </div>
+
             </article>
           </div>
         </div>
@@ -139,6 +135,63 @@
   </div>
 
   {{--{{dump($data)}}--}}
+  <script>
+    $(document).ready(function(){
+      $('#use-telegram-for-change-password').change(function () {
+        $('#defaultPassword').prop("disabled",$(this).is(':checked')).val('');
+      });
 
+      $('#change-password-button').click( function () {
+
+        if ($('#use-telegram-for-change-password').is(':checked')) {
+
+        } else{
+
+        }
+
+      });
+
+      $('#EmailField').change(function () {
+        saveField('email',$(this).val(),$(this));
+      });
+
+      $('#NameField').change(function () {
+        saveField('name',$(this).val(),$(this));
+      });
+
+    });
+
+    function saveField(field, value, obj) {
+      var data = {'_token': '{{csrf_token()}}'};
+      data[field] = value;
+      $.ajax({
+        url: '/save/'+field,
+        type: 'POST',
+        data: data,
+        dataType: 'json',
+        error: function(err) {
+          UIkit.notify({
+            message : 'Критическая ошибка сети, проверьте соединение с интернетом',
+            status  : 'danger',
+            timeout : 5000,
+            pos     : 'bottom-right'
+          });
+          obj.focus();
+        },
+        success: function(result) {
+          UIkit.notify({
+            message : result.reason,
+            status  : result.result,
+            timeout : 5000,
+            pos     : 'bottom-right'
+          });
+          if(!result.code){
+            obj.focus();
+          }
+
+        }
+      });
+    }
+  </script>
 
 @endsection
