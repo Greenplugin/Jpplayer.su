@@ -15,6 +15,7 @@ class TelegramApi extends Controller
 {
 
 public function webHook(){
+    config()->set('session.driver', 'array');
     $data = request()->get('message');
     $boot = new Lib\TelegramBot();
     $message = $boot->exec($data);

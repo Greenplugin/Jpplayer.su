@@ -97,6 +97,10 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'name' => array(
+            'required' => 'Имя не может быть пустым!',
+            'min' => 'Имя не может быть короче :min символов.',
+        ),
     ],
 
     /*

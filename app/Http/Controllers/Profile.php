@@ -22,11 +22,11 @@ class Profile extends Controller
             'regtime' => Auth::user()->created_at->diffForHumans()
         ];
 
-        $value = request()->session()->get('telegramRegKey');
+        $value = request()->session()->get('telegramPassKey');
 
         if(!$value){
             $value = bin2hex(openssl_random_pseudo_bytes(16, $strong));
-            request()->session()->put('telegramRegKey', $value);
+            request()->session()->put('telegramPassKey', $value);
         }
 
         $data['telegram_key'] = $value;
@@ -59,7 +59,7 @@ class Profile extends Controller
     public function saveName(){
         $data = request()->all();
         $validator = Validator::make($data, [
-            'name' => 'required|max:255'
+            'name' => 'required|max:255|min:2'
         ]);
         if(!$validator->fails()){
             User::where('id', Auth::user()->id)->update(['name'=>$data['name']]);
