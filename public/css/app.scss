@@ -101,6 +101,33 @@ header {
       right: 0;
       margin-top: 20px;
     }
+
+    .uk-dropdown {
+      width: 100%;
+      background: $green-color;
+      color: $white-color;
+      padding: 0;
+      ul{
+        margin: 0;
+        padding: 0;
+        display: block;
+        li{
+          margin: 0;
+          padding: 0;
+          display: block;
+          a{
+            display: block;
+            padding: 10px;
+            font-family: AnimeAce;
+            color: $white-color;
+            &:hover{
+              background: $red-color;
+            }
+          }
+        }
+      }
+    }
+
     a{
       display: inline-block;
     }
@@ -196,6 +223,11 @@ main{
     .uk-grid{
       margin-top: 40px;
       .about-block{
+        color: $white-color;
+        h1{
+          color: $white-color;
+          font-family: AnimeAce;
+        }
         background-color: $black-color;
         padding: 20px;
         box-sizing: border-box;
@@ -207,7 +239,7 @@ main{
             text-align: center;
           }
           article{
-            color: white;
+            color: $white-color;
           }
         }
       }
@@ -222,6 +254,8 @@ main{
       color: $blue-color;
       font-size: 26px;
     }
+
+
   }
   .faq{
     .faq-list{
@@ -271,6 +305,12 @@ main{
     }
   }
   .form-block{
+    .no-margin-grid{
+      margin: 0;
+      &>div{
+        padding: 0;
+      }
+    }
     .form-switcher{
       padding-left: 0;
       li{
@@ -301,12 +341,28 @@ main{
       @media (max-width: 768px) {
         width: 100%;
       }
+
+      .btn-link{
+        padding: 0;
+        color: $green-color;
+        font-family: Helvetica Neue;
+        /*font-size: 12px;*/
+      }
+      p{
+        margin-bottom: 5px;
+      }
+
       .input-block{
         position: relative;
+
+        .help-block{
+          color: $red-color
+        }
+
         input[type='text'],
         input[type='email'],
         input[type='password']{
-          padding:10px 10px 10px 5px;
+          padding:15px 10px 5px 5px;
           display:block;
           margin-top: 25px;
           margin-bottom: 15px;
@@ -376,7 +432,7 @@ main{
         input[type="password"]:valid + label{
           top: -10px !important;
           font-size: 14px;
-          transition: all 500ms !important;
+          transition: all 300ms !important;
           color: $white-color !important;
         }
 
@@ -388,14 +444,23 @@ main{
         input[type="password"]:valid + label + span{
           width: 100%;
         }
+
+        input:disabled {
+          border-color: $white-color;
+          & + label{
+            color: $white-color;
+          }
+
+        }
       }
       .submit-div{
-        width: 100%;
+       /* width: 100%;*/
         display: flex;
         justify-content: flex-end;
         padding: 7px 0;
+        align-items: center;
         button, a{
-          padding: 5px 35px;
+          padding: 10px 35px;
           background-color: $green-color;
           font-family: Helvetica Neue;
           font-size: 24px;
@@ -405,7 +470,13 @@ main{
           display: flex;
           align-items: center;
           justify-content: center;
+
+          @media (max-width: 768px) {
+            width: 100%;
+          }
         }
+
+
 
         button.full-width{
           padding: 5px 20px;
@@ -441,10 +512,10 @@ main{
       text-align: left;
       font-family: Helvetica Neue;
       font-size: 20px;
-      color: #f8f2e2;
+      color: $white-color;
       background-color: transparent;
       border: 0;
-      border-bottom: 1px solid #3BC391;
+      border-bottom: 1px solid $green-color;
       margin-right: 20px;
       @media (max-width: 768px) {
         width: 58%;
@@ -462,10 +533,10 @@ main{
       margin-right: 10px;
       font-family: Helvetica Neue;
       font-size: 20px;
-      color: #f8f2e2;
+      color: $white-color;
       background-color: transparent;
       border: 0;
-      border-bottom: 1px solid #3BC391;
+      border-bottom: 1px solid $green-color;
       @media (max-width: 768px) {
         width: auto;
         margin-top: 20px;
@@ -496,6 +567,11 @@ main{
             font-family: "Helvetica Neue";
             color: $white-color;
             font-size: 18px;
+            word-break: break-all;
+            td{
+              word-break: break-all;
+              max-width: 20%;
+            }
           }
           tr:nth-child(odd){
             background-color: $green-color;
@@ -510,22 +586,21 @@ main{
           a{
             font-family: "Helvetica Neue";
             color: $white-color;
+            background-color: $green-color;
           }
         }
-        li.uk-active{
-          a{
-            background-color: $red-color !important;
-          }
-        }
-        li:nth-child(odd){
+        li.blue{
           a{
             background-color: $blue-color;
           }
         }
-        li:nth-child(even){
+        li.uk-active, li.active{
           a{
-            background-color: $green-color;
+            background-color: $red-color !important;
           }
+        }
+        li.disabled{
+          opacity: 0.3;
         }
       }
     }
@@ -622,7 +697,31 @@ main{
       background-color: $red-color;
       width: 100%;
       padding-bottom: 100%;
+      background-position: center;
       background-size: cover;
+      position: relative;
+      .edit-avatar{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        height: 30px;
+        width: 30px;
+        background: $white-color;
+        color: $black-color;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: .0;
+        transition: opacity 300ms ease-in-out;
+      }
+
+      &:hover .edit-avatar{
+        opacity: .5;
+        &:hover{
+          opacity: .9;
+        }
+      }
+
     }
     h3{
       font-size: 20px;
@@ -644,25 +743,38 @@ main{
       }
     }
     a{
-      background-color: $green-color;
+      background-color: $white-color;
+      border: 0;
+      width: 100%;
+      display: flex;
+      padding: 10px;
+      box-sizing: border-box;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: center;
       transition: background 200ms ease-in-out;
+      margin-bottom: 15px !important;
       p{
         font-family: "Helvetica Neue";
-        color: $white-color;
+        color: $blue-color;
         margin-top: 5px;
         transition: background 200ms ease-in-out;
+        padding: 10px;
+        span{
+          display: block;
+          position: relative;
+          font-size: .8em;
+        }
       }
-      border: 0;
-      height: 100%;
-      width: 100%;
       img{
-        height: 75px;
-        width: 75px;
+        max-height: 75px;
+        max-width: 75px;
       }
       &:hover{
-        background-color: $white-color;
+        background-color: $green-color;
         p{
-          color: $green-color;
+          color: $white-color;
         }
       }
 
@@ -715,6 +827,18 @@ footer{
   div{
     color: $white-color;
   }
+  a{
+    color: $black-color;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 2px 8px;
+    max-width: 100%;
+    overflow: hidden;
+    word-break: break-all;
+    &:hover{
+      color: $white-color;
+    }
+  }
 }
 
 
@@ -724,7 +848,7 @@ footer{
 }
 
 .uk-notify-message-success{
-  background: $green-color;
+  background: $blue-color;
 }
 
 /* Remove default checkbox */

@@ -49,31 +49,57 @@
           <div class="uk-width-1-1 faq-block">
             <h3>Что это за сайт?</h3>
             <article>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, amet asperiores blanditiis, consectetur dolor eius fuga harum impedit incidunt minus molestiae neque nihil obcaecati quidem quisquam reiciendis repudiandae. Laudantium, vitae!
+              На этом сайте можно разблокировать штатные головные устройства Toyota, а так же с недавнего времени мультимедийные устройства Clarion.
             </article>
           </div>
           <div class="uk-width-1-1 faq-block">
-            <h3>Что это за сайт?</h3>
+            <h3>Сколько это стоит?</h3>
             <article>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, amet asperiores blanditiis, consectetur dolor eius fuga harum impedit incidunt minus molestiae neque nihil obcaecati quidem quisquam reiciendis repudiandae. Laudantium, vitae!
+              Нисколько. После регистрации Вы можете получить столько кодов, сколько нужно.
             </article>
           </div>
           <div class="uk-width-1-1 faq-block">
-            <h3>Что это за сайт?</h3>
+            <h3>Какие модели этот калькулятор может разблокировать?</h3>
             <article>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, amet asperiores blanditiis, consectetur dolor eius fuga harum impedit incidunt minus molestiae neque nihil obcaecati quidem quisquam reiciendis repudiandae. Laudantium, vitae!
+              Этот калькулятор был протестирован с несколькими десятками разных штатных головных устройств Toyota. Поддержка Clarion должна быть полной, но бывают исключения.
             </article>
           </div>
           <div class="uk-width-1-1 faq-block">
-            <h3>Что это за сайт?</h3>
+            <h3>Какие Вы предоставляете гарантии?</h3>
             <article>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, amet asperiores blanditiis, consectetur dolor eius fuga harum impedit incidunt minus molestiae neque nihil obcaecati quidem quisquam reiciendis repudiandae. Laudantium, vitae!
+              Никаких. Сайт и бот генерируют коды разблокировки, можете использовать, а можете закрыть страничку и поехать в ближайший сервис-центр.
             </article>
           </div>
           <div class="uk-width-1-1 faq-block">
-            <h3>Что это за сайт?</h3>
+            <h3>С чего начать?</h3>
             <article>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, amet asperiores blanditiis, consectetur dolor eius fuga harum impedit incidunt minus molestiae neque nihil obcaecati quidem quisquam reiciendis repudiandae. Laudantium, vitae!
+              Для головных устройств Toyota нужно получить ERC код, подробнее можете найти информацию на нашем форуме.
+              <br>
+              Для медиаустройств Clarion нужен файл (название файла), как ео получить, Вы можете прочитать на нашем формуе.
+            </article>
+          </div>
+          <div class="uk-width-1-1 faq-block">
+            <h3>Как русифицировать?</h3>
+            <article>
+              На данный момент участники форума ведут работу над русификацией в закрытых разделах форума, следите за новостями.
+            </article>
+          </div>
+          <div class="uk-width-1-1 faq-block">
+            <h3>А как..?</h3>
+            <article>
+              На большинство вопросов, которые Вы захотите задать, есть ответы на форуме, если на там у Вас не получается найти нужную информацю, всегда можно спросить, регистрация открытая.
+            </article>
+          </div>
+          <div class="uk-width-1-1 faq-block">
+            <h3>Что я могу для Вас сделать?</h3>
+            <article>
+              Вы можете:
+              <ul>
+                <li>Делиться своими наработками</li>
+                <li>Сообщать об ошибках</li>
+                <li>Участвовать в обсуждениях на форуме</li>
+                <li>Сделать пожартвование</li>
+              </ul>
             </article>
           </div>
         </div>

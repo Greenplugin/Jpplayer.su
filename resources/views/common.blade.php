@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" ng-app="jpPlayer">
 <head>
   <meta charset="UTF-8">
   <title>JPplayer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" href="css/uikit.min.css">
-  <link rel="stylesheet" href="css/components/notify.min.css">
-  <link rel="stylesheet" href="css/components/notify.almost-flat.min.css">
+  <link rel="stylesheet" href="/css/uikit.min.css">
+  <link rel="stylesheet" href="/css/components/notify.min.css">
+  <link rel="stylesheet" href="/css/components/notify.almost-flat.min.css">
 
-  <link rel="stylesheet" href="css/app.css">
-  <script src="js/jquery-3.1.0.min.js"></script>
+  <link rel="stylesheet" href="/css/app.css">
+  <script src="/js/jquery-3.1.0.min.js"></script>
 </head>
-<body>
+<body >
 
 <div id="mobile-menu" class="uk-offcanvas">
   <div class="uk-offcanvas-bar">
@@ -27,13 +27,13 @@
 
 <header>
   <div class="uk-container uk-container-center uk-flex uk-flex-center uk-flex-middle">
-    <a href="/"><img class='logo-header' src="img/logo.png" alt=""></a>
+    <a href="/"><img class='logo-header' src="/img/logo.png" alt=""></a>
   </div>
 
   <a href="#mobile-menu" data-uk-offcanvas class="uk-navbar-toggle mobile-link uk-hidden-large"></a>
 
   @if (Auth::guest())
-    <a href="/register" >
+    <a href="/login" >
       <div class="register-block">
         <h3>Вход и регистрация</h3>
         <article>
@@ -43,12 +43,13 @@
       </div>
     </a>
   @else
-    <a href="/profile">
-      <div class="user-block-header uk-flex uk-flex-middle uk-flex-center">
+    {{--<a href="/profile">--}}
+    <div data-uk-dropdown class="user-block-header">
+      <div class=" uk-flex uk-flex-middle uk-flex-center">
         @if(Auth::user()->avatar)
         <div class="image-user" style="background-image: url({{ Auth::user()->avatar }});"></div>
         @else
-        <div class="image-user" style="background-image: url(http://dreamer-a.ru/wp-content/uploads/2016/05/8UR451HKDD5I1407253622273.jpg);"></div>
+        <div class="image-user" style="background-image: url(/img/small-logo.png);"></div>
         @endif
         <div class="user-caption">
           <h3 class="uk-text-left">{{ Auth::user()->name }}</h3>
@@ -64,7 +65,14 @@
           </article>
         </div>
       </div>
-    </a>
+      <div class="uk-dropdown">
+        <ul class="uk-nav uk-nav-dropdown">
+          <li><a href="/profile">Профиль</a></li>
+          <li><a href="/logout">Выйти</a></li>
+        </ul>
+      </div>
+    </div>
+    {{--</a>--}}
 
   @endif
 
@@ -120,8 +128,15 @@
 </footer>
 
 
+<script src="/js/angular.min.js"></script>
 <script src="js/uikit.min.js"></script>
 <script src="js/components/notify.js"></script>
+<script src="js/angular_pagination.js"></script>
+<script src="js/app.js"></script>
 
+
+<script>
+
+</script>
 </body>
 </html>

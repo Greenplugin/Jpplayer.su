@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\TelegramMessageLog;
+use Illuminate\Support\Facades\Storage;
 use League\Flysystem\Config;
 use App\Lib;
 
@@ -25,18 +26,14 @@ public function webHook(){
     }
 
     if($message['reply']){
-        $this->send($message['text'],$data['from']['id'],$data['message_id']);
+        Lib\TelegramBot::send($message['text'],$data['from']['id'],$data['message_id']);
     } else {
-        $this->send($message['text'],$data['from']['id']);
+        Lib\TelegramBot::send($message['text'],$data['from']['id']);
     }
 
     TelegramMessageLog::insert([ 'value' => json_encode($data)]);
 
     return('');
-}
-
-public function testMessage(){
-    return view('welcome',['data'=>TelegramMessageLog::get(), 'gg' => config('telegram.token')]);
 }
 
 protected function makeMessage($message,$chat_id, $message_id, $reply){
@@ -49,35 +46,7 @@ protected function makeMessage($message,$chat_id, $message_id, $reply){
     ])) ;
 }
 
-public function send($message,$chat_id = false, $reply = false){
-    $url = "https://api.telegram.org/bot".config('telegram.token')."/sendMessage";
 
-    if(!is_array($message)){
-        $content = array(
-            'chat_id' => $chat_id,
-            'text' => $message,
-            'parse_mode' => 'html',
-        );
-    }
-    else{
-        $content = $message;
-    }
-
-    if($reply){
-        $content['reply_to_message_id'] = $reply;
-    }
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($content));
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);  //fix http://unitstep.net/blog/2009/05/05/using-curl-in-php-to-access-https-ssltls-protected-sites/
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $response = curl_exec ($ch);
-    curl_close ($ch);
-    return $response;
-}
 
 protected function authThisUser($message,$data){
 
@@ -89,21 +58,44 @@ protected function authThisUser($message,$data){
     if(!isset($data['from']['username'])){
         $data['from']['username'] = '';
     }
+    $avatar = '';
 
     if($current_user){
-        $message['text'] = 'Вы авторизовались на сайте jpplayer.su, можете вернуться на страницу, она должна была обновиться.';
+
+        if(!$current_user['avatar']){
+            $tgAva = Lib\TelegramBot::getProfilePhoto($data['from']['id']);
+            if($tgAva){
+                $path = 'avatars/' . $current_user['id'] .'/' . str_random(4) . '_'. time() . '.jpg';
+                Storage::disk('user')->put($path, file_get_contents($tgAva));
+                //User::where(['id'=>$current_user['id']])->update(['avatar' => '/users/'.$path] );
+                $avatar = '/users/'.$path;
+            }else{
+                $avatar = '';
+            }
+        }else{
+            $avatar = $current_user['avatar'];
+        }
+
+        $message['text'] = 'Привет! Тебя авторизовал, можешь вернуться на страницу, она должна была обновиться, если страниица не обновилась - обнови ее вручную.';
         User::where('id', $current_user['id'])->update([
             'telegramAuthKey' => $data['text'],
             'telegram_username' => $data['from']['username'],
+            'avatar'=> $avatar
             ]);
     } else {
 
-        $Avatar = $this->send([
-            'chat_id' => $data['from']['id'],
-            'chat_id' => $data['from']['id'],
+        $tgAva = Lib\TelegramBot::getProfilePhoto($data['from']['id']);
+        if($tgAva){
+            $path = 'avatars/' . $current_user['id'] .'/' . str_random(4) . '_'. time() . '.jpg';
+            Storage::disk('user')->put($path, file_get_contents($tgAva));
+            //User::where(['id'=>$current_user['id']])->update(['avatar' => '/users/'.$path] );
+            $avatar = '/users/'.$path;
+        }
 
-        ]);
-        $message['text'] = 'Поздравляем! Вы зарегистрировались на сайте jpplayer.su, можете вернуться на страницу, откуда выполняли регистрацию';
+        $arr = openssl_random_pseudo_bytes(8, $strong);
+        $password = bin2hex($arr);
+
+        $message['text'] = "Поздравляем! Вы зарегистрировались на сайте jpplayer.su, Ваш временный пароль <b>$password</b> можете вернуться на страницу, откуда выполняли регистрацию";
 
         if(!isset($data['from']['first_name'])){
             $data['from']['first_name'] = '';
@@ -119,6 +111,10 @@ protected function authThisUser($message,$data){
             'name' => $data['from']['first_name'] . ' ' . $data['from']['last_name'],
             'email' => $data['from']['id'],
             'telegram_id' => $data['from']['id'],
+            'avatar' => $avatar,
+            'password' => bcrypt($password),
+            'active' => 1,
+            'unlocks' => 5,
             'telegram_username' => $data['from']['username'],
         ]);
     }

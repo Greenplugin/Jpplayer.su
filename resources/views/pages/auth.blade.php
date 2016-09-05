@@ -4,6 +4,7 @@
 
     <div class="about">
       <div class="uk-container uk-container-center">
+        <h2>Вход и регистрация</h2>
         <div class="uk-grid grid-block">
           <div class="uk-width-small-1-1 uk-width-medium-1-1 uk-width-large-1-2">
             <a id="tgButton" href="https://telegram.me/jpllayer_bot?start={{$telegram_key}}" target="_blank">
@@ -16,7 +17,7 @@
 
                       <article>
                         <h3>В Telegram</h3>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid asperiores aut, corporis culpa dolores eos explicabo, harum id iusto laudantium minima odit placeat quos repudiandae similique ut velit voluptatum.
+                        Просто перейдите по ссылке, добавьте Telegram бота и Вы автоматически будете зарегистрированы на сайте, а так же сможете пользоваться калькулятором прямо в Telegram.
                       </article>
 
                   </div>
@@ -41,7 +42,7 @@
                   tgKey = '{{$telegram_key}}';
                   var recounter = setInterval(function (e) {
                     getAuth(tgKey);
-                  },1000)
+                  },1000);
                 });
                 });
 
@@ -68,12 +69,11 @@
             <div class="about-block second-about">
               <div class="uk-grid">
                 <div class="uk-width-small-1-1 uk-width-medium-1-1 uk-width-large-1-1">
-                  <article>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid asperiores aut, corporis culpa dolores eos explicabo, harum id iusto laudantium minima odit placeat quos repudiandae similique ut velit voluptatum.
-                    <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam consequuntur
-                      doloribus mollitia nam voluptates. Adipisci aspernatur assumenda at commodi
-                      culpa cumque debitis, itaque magnam nobis non officia similique veniam,
-                      voluptatem?</div>
+                  <article style="text-align: justify;">
+                    Используя Telegram для регистрации Вы обеспечиваете себе удобный способ получать ключи прямо в mesenger, а так же увеличивается лимит на получение кодов для clarion до 5.
+                    Аккаунты зарегистрированные с помощью Telegram полностью соответствуют обычной регистрации. <br>
+                    История получения ключей сохраняется в обоих видах аккаунтов. <br>
+                    После регистрации Вы можете установить E-mail и входить на сайт обычным образом. <br>
                   </article>
                 </div>
               </div>
@@ -89,6 +89,7 @@
                 <li>
                   <form action="{{ url('/register') }}" class="registration-form">
                     {{ csrf_field() }}
+                    {{$errors->first()}}
                     <div class="input-block {{ $errors->has('email') ? ' has-error' : '' }}">
                       <input required id="regemail" type="text" value="">
                       <label for="regemail">Email</label>
@@ -131,18 +132,15 @@
                     </div>
                     <div class="submit-div">
                       <button id="submit">
-                        Вход
+                        Зарегистрироваться
                       </button>
                     </div>
                   </form>
                   <article>
-                    <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab cum illum incidunt
-                      nesciunt odit ratione voluptates voluptatibus? Blanditiis, porro, sequi. Alias
-                      hic laborum optio quaerat quia repudiandae sunt vel voluptates?
-                    </div>
-                    <div>A delectus deserunt, ex expedita iste, maxime nemo pariatur quae quaerat qui,
-                      sunt tenetur vel veritatis. Doloremque minus modi numquam provident suscipit.
-                      Animi corporis cupiditate ducimus eaque laboriosam laborum quasi.
+                    <div style="text-align: justify">Используя сайт Вы даете согласие на сбор статистики и хранение истории сгенерированных ключей.
+                      <br>
+                      А так же подтверждаете, что администрация сайта не несет ответсвенности за испорченные вашими дествиями устройства, истраченные нервы и
+                      <span style="text-decoration: line-through">загубленные жизни</span>.
                     </div>
                   </article>
                 </li>
@@ -169,20 +167,32 @@
                                     </p>
                       @endif
                     </div>
-                    <div class="submit-div">
-                      <button>
-                        Вход
-                      </button>
+                    <div class="uk-grid uk-grid-width-medium-1-2 no-margin-grid">
+                      <div>
+                        <p>
+                          @if(old('remember'))
+                            <input type="checkbox" id="remember" checked name="remember" />
+                          @else
+                            <input type="checkbox" id="remember" name="remember" />
+                          @endif
+                          <label  for="remember">Запомнить меня</label>
+                        </p>
+                        <a class="btn btn-link" href="{{ url('/password/reset') }}">Забыли пароль?</a>
+                      </div>
+                      <div class="submit-div">
+
+                        <button>
+                          Вход
+                        </button>
+                      </div>
                     </div>
+
                   </form>
                   <article>
-                    <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab cum illum incidunt
-                      nesciunt odit ratione voluptates voluptatibus? Blanditiis, porro, sequi. Alias
-                      hic laborum optio quaerat quia repudiandae sunt vel voluptates?
-                    </div>
-                    <div>A delectus deserunt, ex expedita iste, maxime nemo pariatur quae quaerat qui,
-                      sunt tenetur vel veritatis. Doloremque minus modi numquam provident suscipit.
-                      Animi corporis cupiditate ducimus eaque laboriosam laborum quasi.
+                    <div style="text-align: justify">Используя сайт Вы даете согласие на сбор статистики и хранение истории сгенерированных ключей.
+                      <br>
+                      А так же подтверждаете, что администрация сайта не несет ответсвенности за испорченные вашими дествиями устройства, истраченные нервы и
+                      <span style="text-decoration: line-through">загубленные жизни</span>.
                     </div>
                   </article>
                 </li>

@@ -1,70 +1,78 @@
-@extends('layouts.app')
+@extends('common')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
 
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/reset') }}">
-                        {{ csrf_field() }}
+    <div class="about">
+        <div class="uk-container uk-container-center">
+            <div class="uk-grid grid-block">
+                <div class="uk-width-small-1-1 uk-width-medium-1-1 uk-width-large-1-2 about-block">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad animi blanditiis commodi consequatur cupiditate distinctio, eius error expedita explicabo id illum in ipsum iste itaque iure iusto labore, mollitia odit porro quaerat quas quis quo ratione repellendus repudiandae, suscipit tenetur ullam veniam voluptas voluptate. Architecto asperiores aspernatur autem beatae cum debitis deserunt distinctio, earum facere illum inventore iste laudantium magni molestias necessitatibus nesciunt placeat provident quaerat quia quis quisquam ratione repellendus sed sequi sint sit suscipit tempora ut vel voluptate? Error labore libero maiores optio quia quis quos similique sit sunt suscipit tempora, temporibus vel voluptas, voluptatem voluptatibus? Quos, sit?
+                </div>
 
-                        <input type="hidden" name="token" value="{{ $token }}">
+                <div class="uk-width-small-1-1 uk-width-medium-1-1 uk-width-large-1-2">
+                    <div class="about-block full-height form-block">
+                        <form action="{{ url('/password/reset') }}" role="form" method="POST" class="registration-form">
+                            {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ $email or old('email') }}">
-
+                            <input type="hidden" name="token" value="{{ $token }}">
+                            <div class="input-block{{ $errors->has('email') ? ' has-error' : '' }}">
+                                <input required id="email" name="email" type="text" value="{{ $email or old('email') }}">
+                                <label for="email">Email</label>
+                                <span></span>
                                 @if ($errors->has('email'))
-                                    <span class="help-block">
+                                    <p class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
+                                    </p>
                                 @endif
                             </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password">
-
+                            <div class="input-block{{ $errors->has('password') ? ' has-error' : '' }}">
+                                <input required id="newPassword" type="password" name="password" value="">
+                                <label for="newPassword">Новый пароль</label>
+                                <span></span>
                                 @if ($errors->has('password'))
-                                    <span class="help-block">
+                                    <p class="help-block">
                                         <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
+                                    </p>
                                 @endif
                             </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
-
+                            <div class="input-block{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                                <input required id="confirmPassword" type="password" name="password_confirmation" value="">
+                                <label for="confirmPassword">Потвердите пароль</label>
+                                <span></span>
                                 @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
+                                    <p class="help-block">
                                         <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
+                                    </p>
                                 @endif
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-refresh"></i> Reset Password
+                            <div class="submit-div">
+                                <button id="change-password-button">
+                                    Сменить пароль
                                 </button>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
-</div>
+
+
+    <div class="donat">
+        <h2 class="main-title">Поддержите развитие проекта</h2>
+        <div class="uk-container uk-container-center">
+            <div class="donat-article">
+                <article>
+                    Все наработки сделаны участниками форума. Чтобы вынести <br>
+                    свою лепту в развитие проекта учавствуйте в обсуждениях, <br>
+                    делитесь своими наработками.
+                </article>
+                <article>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum iure minima nihil perferendis possimus quis, ratione voluptatum? Aspernatur dicta id, ipsum laborum magni modi soluta, sunt tempore ut velit, voluptates.
+                </article>
+            </div>
+        </div>
+    </div>
 @endsection

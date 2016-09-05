@@ -2,11 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Events\SomeEvent;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EventListener
+class LogSuccessfulLogin
 {
     /**
      * Create the event listener.
@@ -21,12 +21,11 @@ class EventListener
     /**
      * Handle the event.
      *
-     * @param  SomeEvent  $event
+     * @param  Login  $event
      * @return void
      */
-    public function handle(SomeEvent $event)
+    public function handle(Login $event)
     {
-        request()->session()->forget('telegramRegKey');
-        request()->session()->forget('telegramPassKey');
+        //
     }
 }
