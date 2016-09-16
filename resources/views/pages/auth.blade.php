@@ -87,11 +87,10 @@
               </ul>
               <ul id="forms" class="uk-switcher">
                 <li>
-                  <form action="{{ url('/register') }}" class="registration-form">
+                  <form action="{{ url('/register') }}" method="POST" class="registration-form">
                     {{ csrf_field() }}
-                    {{$errors->first()}}
                     <div class="input-block {{ $errors->has('email') ? ' has-error' : '' }}">
-                      <input required id="regemail" type="text" value="">
+                      <input required id="regemail" name="email" type="text" value="{{ old('email') }}">
                       <label for="regemail">Email</label>
                       <span></span>
                       @if ($errors->has('email'))
@@ -101,7 +100,7 @@
                       @endif
                     </div>
                     <div class="input-block {{ $errors->has('email') ? ' has-error' : '' }}">
-                      <input required id="name" type="text" value="">
+                      <input required id="name" name="name" type="text" value="{{ old('name') }}">
                       <label for="name">Имя</label>
                       <span></span>
                       @if ($errors->has('name'))
@@ -111,7 +110,7 @@
                       @endif
                     </div>
                     <div class="input-block {{ $errors->has('password') ? ' has-error' : '' }}">
-                      <input required id="password" type="password" value="">
+                      <input required id="password" name="password" type="password" value="{{ old('password') }}">
                       <label for="password">Пароль</label>
                       <span></span>
                       @if ($errors->has('password'))
@@ -121,7 +120,7 @@
                       @endif
                     </div>
                     <div class="input-block {{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                      <input required id="passwordsecond" type="password" value="">
+                      <input required id="passwordsecond" name="password_confirmation" type="password" value="{{ old('password_confirmation') }}">
                       <label for="passwordsecond">Повторите пароль</label>
                       <span></span>
                       @if ($errors->has('password_confirmation'))
@@ -204,19 +203,5 @@
     </div>
 
 
-    <div class="donat">
-      <h2 class="main-title">Поддержите развитие проекта</h2>
-      <div class="uk-container uk-container-center">
-        <div class="donat-article">
-          <article>
-            Все наработки сделаны участниками форума. Чтобы вынести <br>
-            свою лепту в развитие проекта учавствуйте в обсуждениях, <br>
-            делитесь своими наработками.
-          </article>
-          <article>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum iure minima nihil perferendis possimus quis, ratione voluptatum? Aspernatur dicta id, ipsum laborum magni modi soluta, sunt tempore ut velit, voluptates.
-          </article>
-        </div>
-      </div>
-    </div>
+    @include('partials.donate');
 @endsection

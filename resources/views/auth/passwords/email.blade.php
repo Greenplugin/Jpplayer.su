@@ -6,7 +6,7 @@
         <div class="uk-container uk-container-center">
             <div class="uk-grid grid-block">
                 <div class="uk-width-small-1-1 uk-width-medium-1-1 uk-width-large-1-2 about-block">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad animi blanditiis commodi consequatur cupiditate distinctio, eius error expedita explicabo id illum in ipsum iste itaque iure iusto labore, mollitia odit porro quaerat quas quis quo ratione repellendus repudiandae, suscipit tenetur ullam veniam voluptas voluptate. Architecto asperiores aspernatur autem beatae cum debitis deserunt distinctio, earum facere illum inventore iste laudantium magni molestias necessitatibus nesciunt placeat provident quaerat quia quis quisquam ratione repellendus sed sequi sint sit suscipit tempora ut vel voluptate? Error labore libero maiores optio quia quis quos similique sit sunt suscipit tempora, temporibus vel voluptas, voluptatem voluptatibus? Quos, sit?
+                        Укажите E-mail от аккаунта у которого Вы забыли пароль. после нажатия на кнопку "восстановить пароль" Вам будет выслано письмо со ссылкой, перейдя по которой Вы сможете установить новый пароль. Ну и как обычно никому не сообщайте свои данные для входа.
                 </div>
                 <div class="uk-width-small-1-1 uk-width-medium-1-1 uk-width-large-1-2">
                     <div class="about-block full-height form-block">

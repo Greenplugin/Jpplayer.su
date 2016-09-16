@@ -122,4 +122,49 @@ protected function authThisUser($message,$data){
     return $message;
 }
 
+protected function paymentCallback(){
+    $d = request()->all();
+    if(isset($d['sha1_hash'])){
+                                                                                                                    //&label
+        $hash = sha1($d['notification_type'].'&'.$d['operation_id'].'&'.$d['amount'].'&'.$d['currency'].'&'.$d['datetime'].'&'.$d['sender'].'&'.$d['codepro'].'&'.config()->get('telegram.ya_secret').'&'.$d['label']);
+        if($d['sha1_hash'] == $hash){
+
+            $s=''; $a=''; $ol='';
+
+            if(isset($d['sender'])){
+                $s = $d['sender'];
+            }
+
+            if (isset($d['amount'])) {
+                $a = $d['amount'];
+            }
+
+            if (isset($d ['operation_id'])) {
+                $ol = $d ['operation_id'];
+            }
+
+            $m = "Кто-то ($s) перевел $a рублей с кодом операции: $ol.";
+
+            Lib\TelegramBot::send(
+                "У Вас новое пожертование \n".$m,
+                config('telegram.ya_alert_to_telegram')
+            );
+        }else{
+            Lib\TelegramBot::send(
+                'Кто-то дрочит сайт',
+                config('telegram.ya_alert_to_telegram')
+            );
+        }
+    } else{
+        Lib\TelegramBot::send(
+            'Кто-то дрочит сайт',
+            config('telegram.ya_alert_to_telegram')
+        );
+    }
+
+    return 'ok';
+
+
+}
+
 }

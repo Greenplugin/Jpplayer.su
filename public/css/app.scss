@@ -1,8 +1,10 @@
-$green-color: #3BC391;
-$blue-color: #2F79C3;
-$black-color: #374047;
-$red-color: #EB4549;
-$white-color: #f8f2e2;
+$green-color:   #3BC391;
+$blue-color:    #2F79C3;
+$black-color:   #374047;
+$red-color:     #EB4549;
+$white-color:   #f8f2e2;
+$yellow-color:  #E75926;
+$overlay-color: rgba(47, 121, 195, 0.42);
 
 @font-face{
   font-family: AnimeAce;
@@ -54,7 +56,7 @@ header {
 
   .mobile-link{
     position: absolute;
-    color:white;
+    color: $white-color;
     top: 10px;
     left: 10px;
   }
@@ -224,6 +226,10 @@ main{
       margin-top: 40px;
       .about-block{
         color: $white-color;
+        overflow: hidden;
+        li{
+          overflow: hidden;
+        }
         h1{
           color: $white-color;
           font-family: AnimeAce;
@@ -241,6 +247,86 @@ main{
           article{
             color: $white-color;
           }
+          .file-upload{
+            width: 100%;
+            min-height: 60px;
+            box-sizing: border-box;
+            .static-file{
+              display: block;
+              position: relative;
+              padding: 30px 20px;
+              background-color: $green-color;
+              transition: all 500ms;
+              h3{
+                color: $white-color;
+                font-size: 22px;
+                text-align: left !important;
+                margin-bottom: 10px;
+              }
+              p{
+                display: inline;
+                padding: 5px;
+                background: $white-color;
+                margin: 10px 0;
+                color: $red-color;
+                text-align: left;
+              }
+            }
+            .static-file.drag-in{
+              background-color: $blue-color;
+            }
+          }
+
+          .file-ready{
+            padding: 20px;
+            background: $white-color;
+            color: $red-color;
+            text-align: left;
+            h3{
+              color: $blue-color;
+              text-align: left;
+            }
+            .custom-button{
+              padding: 10px 35px;
+              background-color: $green-color;
+              font-family: Helvetica Neue;
+              font-size: 24px;
+              border: 0;
+              color: $white-color;
+              font-weight: bold;
+              display: flex;
+              align-items: center;
+              position: relative;
+              justify-content: center;
+              outline: none;
+              &:disabled{
+                background-color: $white-color;
+                color: $black-color;
+
+              }
+              @media (max-width: 768px) {
+                width: 100%;
+              }
+              &::before{
+                opacity: 0;
+                transition: 500ms all ease-in-out;
+                background: $overlay-color;
+                content: "";
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                z-index: 0;
+                position: absolute;
+              }
+              &:hover::before{
+                opacity: 1;
+              }
+              span, i{
+                z-index: 2;
+              }
+            }
+          }
         }
       }
       .about-block.second-about{
@@ -254,6 +340,8 @@ main{
       color: $blue-color;
       font-size: 26px;
     }
+
+
 
 
   }
@@ -354,6 +442,14 @@ main{
 
       .input-block{
         position: relative;
+
+        a.clear{
+          position: absolute;
+          top: 50%;
+          right: 0px;
+          margin-top: -6px;
+          color: $red-color;
+        }
 
         .help-block{
           color: $red-color
@@ -470,19 +566,23 @@ main{
           display: flex;
           align-items: center;
           justify-content: center;
+          &:disabled{
+            background-color: $white-color;
+            color: $black-color;
 
+          }
           @media (max-width: 768px) {
             width: 100%;
           }
         }
 
 
-
         button.full-width{
-          padding: 5px 20px;
+          width: 100%;
         }
       }
     }
+
     article{
       box-sizing: border-box;
       float: left;
@@ -606,87 +706,6 @@ main{
     }
   }
 
-  .file-upload{
-    width: 100%;
-    min-height: 60px;
-    box-sizing: border-box;
-    padding: 10px ;
-  }
-
-  .static-file,
-  .file-drag,
-  .file-ready{
-    display: none;
-  }
-
-  .file-upload.static{
-    background-color: $green-color;
-    .static-file{
-      display: block;
-      h3{
-        color: $white-color !important;
-        font-size: 22px;
-        margin-bottom: 5px;
-      }
-      p{
-        width: 100%;
-        margin: 10px 0;
-        color: $white-color;
-        text-align: center;
-      }
-    }
-  }
-
-  .file-upload.drag{
-    background-color: $blue-color;
-    .file-drag{
-      display: block;
-      h3{
-        color: $white-color !important;
-        font-size: 22px;
-        margin-bottom: 5px;
-      }
-      p{
-        width: 100%;
-        margin: 10px 0;
-        color: $white-color;
-        text-align: center;
-      }
-    }
-  }
-
-  .file-upload.upload{
-    background-color: $white-color;
-    .file-ready{
-      display: block;
-      .uk-grid > *{
-        margin-bottom: 0;
-      }
-      h3{
-        color: $green-color !important;
-        font-size: 22px !important;
-        text-align: left !important;
-        font-family: "Helvetica Neue" !important;
-        margin-bottom: 5px !important;
-      }
-      p{
-        width: 100%;
-        margin: 10px 0 !important;
-        text-align: left !important;
-        font-size: 18px !important;
-        color: $red-color;
-      }
-      button{
-        background-color: $green-color;
-        height: 100%;
-        width: 100%;
-        font-family: AnimeAce;
-        color: $white-color;
-        font-size: 22px;
-        border: 0;
-      }
-    }
-  }
   .profile-block{
     height: 100%;
     background-color: $black-color;
@@ -851,6 +870,10 @@ footer{
   background: $blue-color;
 }
 
+.uk-notify-message-warning{
+  background: $yellow-color;
+}
+
 /* Remove default checkbox */
 [type="checkbox"]:not(:checked),
 [type="checkbox"]:checked {
@@ -911,7 +934,7 @@ footer{
   -webkit-transform: rotateZ(37deg);
   transform: rotateZ(37deg);
 
-  -webkit-transform-origin: 20% 40%;
+  -webkit-transform-origin: 100% 100%;
   transform-origin: 100% 100%;
 }
 [type="checkbox"]:checked + label:after {
@@ -944,4 +967,145 @@ footer{
   border-color: #fff;
 }
 
+.statistics {
+  max-width: 400px;
+  color: $white-color;
+  background: $black-color;
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  padding: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  .uk-grid{
+    text-align: left;
+    p{
+      display: flex;
+      text-align: center;
+      justify-content: space-between;
+      span{
+        position: relative;
+        color: $green-color;
+        &::after{
+          border-bottom: dotted 1px $green-color;
+          content: "";
+          top: 65%;
+          left: 5%;
+          position: absolute;
+          width: 90%
+        }
 
+        flex: 1 0 0;
+      }
+      span:first-child{
+        border: 0 none transparent;
+        flex: 0 1 0;
+        &::after{
+          border: 0 none transparent;
+        }
+      }
+      span:last-child{
+        &::after{
+          border: 0 none transparent;
+        }
+        flex: 0 1 0;
+      }
+    }
+  }
+  h3, h5{
+    color: $green-color;
+  }
+
+  p{
+    color: $green-color;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+}
+
+.uk-center{
+  text-align: center;
+}
+
+strike{
+  opacity: .5
+}
+
+.l-404{
+  margin: 50px;
+  margin-bottom: 0;
+  color: $red-color;
+  font-size: 5rem;
+  font-family: 'AnimeAce';
+  text-align: center;
+  letter-spacing: -1rem;
+  span{
+    font-size: 7rem;
+  }
+}
+
+.donate-form{
+  overflow: auto;
+  margin: 0 -24px;
+  padding: 10px;
+  text-align: center;
+  iframe{
+    display: inline-block;
+  }
+}
+.uk-inline-block-padding{
+  padding: 20px;
+  display: inline-block;
+}
+
+.custom-button{
+  padding: 20px 35px;
+  background-color: $green-color;
+  font-family: Helvetica Neue;
+  font-size: 24px;
+  border: 0;
+  color: $white-color;
+  font-weight: bold;
+  display: block;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+  outline: none;
+  &:disabled{
+    background-color: $white-color;
+    color: $black-color;
+
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+  &::before{
+    opacity: 0;
+    transition: 500ms all ease-in-out;
+    background: $overlay-color;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    position: absolute;
+  }
+  &:hover::before{
+    opacity: 1;
+  }
+
+  span, i{
+    z-index: 2;
+  }
+
+  &:hover{
+    text-decoration: none;
+    color: $white-color;
+
+  }
+}

@@ -1,6 +1,8 @@
 var application = angular.module('jpPlayer', ['angularUtils.directives.dirPagination']);
 
-application.controller('History', function History($scope,$http) {
+application.controller('Calc', function Calc($scope, $http,CSRF_TOKEN) {
+
+    //history
     $scope.rows = []; //declare an empty array
     $http.get('/history/get').then(function(response) {
         response.data.forEach( function (val, key, arr) {
@@ -12,18 +14,178 @@ application.controller('History', function History($scope,$http) {
     });
 
     $scope.sort = function(keyName){
-        console.info(keyName);
         $scope.sortKey = keyName;   //set the sortKey to the param passed
         $scope.reverse = !$scope.reverse; //if true make it false and vice versa
+    };
+
+    //calc
+    $scope.codeLeft = '0000';
+    $scope.codeRight = '0000';
+    $scope.ercActive = false;
+    $scope.loader = false;
+    $scope.fileSelected = false;
+    $scope.cLoader = false;
+    $scope.cdisabled = true;
+    $scope.ClResult = '0000';
+
+    $scope.update = function () {
+        if(/[0-9A-Fa-f ]{19}/.test($scope.input)){
+            $scope.ercActive = true;
+        } else{
+            $scope.ercActive = false;
+        }
+    };
+
+    $scope.getErc = function (e) {
+        $scope.loader = true;
+        $scope.ercActive = false;
+        $http.post('/calc/Erc', {erc: e, _token: CSRF_TOKEN}).then(function(result){
+            $scope.codeLeft = result.data.left;
+            $scope.codeRight = result.data.right;
+            $scope.loader = false;
+            $scope.ercActive = true;
+            UIkit.notify({
+                message : result.data.message,
+                status  : result.data.status,
+                timeout : 5000,
+                pos     : 'bottom-right'
+            });
+            if(result.data.status==='success'){
+                if(result.data.sm.device_type === 'Clarion'){
+                    result.data.sm.input_data = 'Байты';
+                }
+                $scope.rows.unshift(result.data.sm);
+            }
+
+        }, function () {
+            $scope.loader = false;
+            $scope.ercActive = true;
+            UIkit.notify({
+                message : 'Ошибка соединения с сервером',
+                status  : 'danger',
+                timeout : 5000,
+                pos     : 'bottom-right'
+            });
+        });
+    };
+
+    $scope.fileDrop = function(clarionFiles, el){
+        var clarionFile = clarionFiles[0];
+        $scope.el = el;
+        if(clarionFile){
+            if(clarionFile.size == 72){
+                $scope.fileSelected = true;
+                $scope.cdisabled = false;
+                $scope.clarionFile = clarionFile;
+                UIkit.notify({
+                    message : 'Вроде файл корректный, Будем делать из него код',
+                    status  : 'success',
+                    timeout : 5000,
+                    pos     : 'bottom-right'
+                });
+            } else{
+                UIkit.notify({
+                    message : 'Неверный файл, используйте файл <b>CL_SCODE.SCR</b> полученный из ГУ Clarion',
+                    status  : 'danger',
+                    timeout : 5000,
+                    pos     : 'bottom-right'
+                });
+            }
+        }
+    };
+
+    $scope.sendFile = function () {
+        $scope.cLoader = true;
+        $scope.cdisabled = true;
+        $scope.ClResult = '----';
+        var fd = new FormData();
+        fd.append('ClarionFile', $scope.clarionFile);
+        fd.append('_token', CSRF_TOKEN);
+        $http.post(
+            '/calc/clarion',
+            fd,
+            {
+                headers: {'Content-Type': undefined },
+                transformRequest: angular.identity
+            }
+        )
+            .success(function(result){
+                $scope.cLoader = false;
+                $scope.fileSelected = false;
+                //$scope.el.files = [];
+                $scope.el.value = '';
+                $scope.ClResult = result.code;
+                $scope.getUnlocks();
+                UIkit.notify({
+                    message : result.message,
+                    status  : result.status,
+                    timeout : 5000,
+                    pos     : 'bottom-right'
+                });
+                if(result.status==='success'){
+                    if(result.sm.device_type === 'Clarion'){
+                        result.sm.input_data = 'Байты';
+                    }
+                    $scope.rows.unshift(result.sm);
+                }
+            })
+            .error(function (err) {
+                $scope.cLoader = false;
+                $scope.fileSelected = false;
+                $scope.el.value = '';
+                UIkit.notify({
+                    message : 'Ошибка соединения с сервером, или у программиста были кривые руки.',
+                    status  : 'danger',
+                    timeout : 5000,
+                    pos     : 'bottom-right'
+                });
+            });
+    };
+
+
+
+    $scope.getUnlocks = function () {
+        $http.get('/calc/unlocks').then(function(response) {
+            $scope.unlocks = response.data.unlocks ;
+        });
+    };
+
+    $scope.unlocks = $scope.getUnlocks();
+
+}).directive('ngFileChange', function() {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attr) {
+            var onChangeHandler = scope.$eval(attr.ngFileChange);
+            element.bind('change', function(){
+                scope.$apply(onChangeHandler(element[0].files, element[0]))
+            });
+        }
+    };
+});
+
+window.ondragover = function(e) { e.preventDefault(); return false };
+window.ondrop = function(e) { e.preventDefault(); return false };
+
+var holder = document.getElementById('main-drop-zone');
+holder.ondragover = function () {
+    $('#main-drop-zone').addClass('drag-in');
+    return false;
+};
+
+holder.ondragleave = function () {
+    $('#main-drop-zone').removeClass('drag-in');
+    return false;
+};
+
+holder.ondrop = function (e) {
+    e.preventDefault();
+    $('#main-drop-zone').removeClass('drag-in');
+    if(e.dataTransfer.files[0]){
+        document.getElementById('clarionInput').files = e.dataTransfer.files;
     }
-
-
-});
-
-application.controller('Calc', function Calc($scope, $http) {
-
-});
-
+    return false;
+};
 
 
 /*
@@ -208,27 +370,4 @@ masked input
     });
 });
 
-
-jQuery(function($) {
-
-    /*маскировка поля erc*/
-
-    $.mask.definitions['x']='[A-Fa-f0-9]';
-    $('#ercCode').mask('xxxx xxxx xxxx xxxx', {
-        autoclear: false,
-        placeholder: '-',
-        completed:function(){
-            setValid($(this), true);
-        }
-    });
-
-});
-
-$(document).ready(function() {
-
-});
-
-function setValid() {
-
-}
 

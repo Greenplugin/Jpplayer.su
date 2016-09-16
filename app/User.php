@@ -18,6 +18,7 @@ class User extends Authenticatable
         'avatar',
         'telegram_id',
         'telegram_username',
+        'email_confirmation_key',
         'telegramAuthKey',
         'unlocks',
         'active',

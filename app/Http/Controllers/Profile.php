@@ -60,7 +60,8 @@ class Profile extends Controller
             }
             $mailData = [
                 'url' => config()->get('app.url').'/service/confirm-change-email/'.$key,
-                'email' => $data['email']
+                'email' => $data['email'],
+                'site'  => config()->get('app.url')
             ];
             Mail::send('emails.changeEmail', $mailData, function ($message) use ($data) {
                 $message->to($data['email'])->subject('Привязка почтового ящика');

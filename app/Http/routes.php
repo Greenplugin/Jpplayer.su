@@ -15,12 +15,21 @@ Route::get('/', function () {
     return view('pages.index');
 });
 
+Route::get('/thank-you', function () {
+    return view('pages.index');
+});
+
 Route::get('/home', function () {
     return view('pages.index');
 });
 
+Route::get('/about', function () {
+    return view('pages.about');
+});
+
 Route::auth();
 
+Route::post('/donate/callback', 'TelegramApi@paymentCallback');
 
 
 Route::group(['middleware' => ['auth']], function () {
@@ -29,9 +38,19 @@ Route::group(['middleware' => ['auth']], function () {
         return view('pages.calc');
     });
 
+
+    Route::get('?route=calc', function () {
+        return view('pages.calc');
+    });
+
     Route::get('/history/get', 'Calc@getHistory');
 
     Route::get('/profile', 'Profile@show');
+
+    Route::get('/calc/unlocks', 'Calc@getUnlocks');
+
+    Route::post('/calc/Erc', 'Calc@getErc');
+    Route::post('/calc/clarion', 'Calc@getClarion');
 
     Route::post('/profile/new-avatar', 'Profile@newAvatar');
 
@@ -53,13 +72,15 @@ Route::group(['middleware' => ['auth']], function () {
 
 Route::group(['middleware' => ['guest']], function () {
 
+    Route::get('/service/confirm-email/{token}', 'UAuth@confirm');
 
     Route::get('/login', 'UAuth@index');
     Route::get('/register', 'UAuth@registerIndex');
-    Route::post('/shadow/auth', 'UAuth@telegramAuth');
 
     Route::post('/login', 'UAuth@create');
+    Route::post('/register', 'UAuth@registration');
 
+    Route::post('/shadow/auth', 'UAuth@telegramAuth');
 });
 
 /*Route::get('/home', 'HomeController@index');*/

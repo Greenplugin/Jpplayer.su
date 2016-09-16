@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru" ng-app="jpPlayer">
+@if (Auth::guest())
+  <html lang="ru">
+@else
+  <html lang="ru" ng-app="jpPlayer">
+@endif
+
 <head>
   <meta charset="UTF-8">
   <title>JPplayer</title>
@@ -17,7 +22,7 @@
 <div id="mobile-menu" class="uk-offcanvas">
   <div class="uk-offcanvas-bar">
     <ul class="uk-nav">
-      <li class="uk-active"><a href="/">Главная</a></li>
+      <li><a href="/">Главная</a></li>
       <li><a href="/calc">Калькулятор</a></li>
       <li><a href="http://forum.jpplayer.su">Форум</a></li>
       <li><a href="/about">Авторы</a></li>
@@ -86,7 +91,7 @@
     <div class="uk-container uk-container-center">
       <nav class="uk-navbar">
         <ul class="uk-navbar-nav">
-          <li class="uk-active"><a href="/">Главная</a></li>
+          <li><a href="/">Главная</a></li>
           <li><a href="/calc">Калькулятор</a></li>
           <li><a href="http://forum.jpplayer.su">Форум</a></li>
           <li><a href="/about">Авторы</a></li>
@@ -102,25 +107,22 @@
   <div class="uk-container uk-container-center">
     <div class="uk-grid">
       <div class="uk-width-small-1-1 uk-width-medium-1-1 uk-width-large-1-2">
-        <h3>Темы форума</h3>
+        <h3>Дополнительно</h3>
         <ul>
-          <li><a href="#">Калькуляторы и разблокировщики</a></li>
-          <li><a href="#">Официальные прошивки</a></li>
-          <li><a href="#">Разбор прошивок, кастомы</a></li>
-          <li><a href="#">Русификация и локализация</a></li>
-          <li><a href="#">Создание карт kwi</a></li>
-          <li><a href="#">О железе</a></li>
+          <li><a href="http://forum.jpplayer.su">Форум</a></li>
+          <li><a href="http://forum.jpplayer.su/viewtopic.php?f=3&t=42">Ключи для неподдерживаемых моделей</a></li>
+          <li><a href="http://forum.jpplayer.su/viewforum.php?f=8">Русификация</a></li>
+          <li><a href="http://forum.jpplayer.su/viewforum.php?f=12">Обратная связь</a></li>
         </ul>
       </div>
       <div class="uk-width-small-1-1 uk-width-medium-1-1 uk-width-large-1-2">
-        <h3>Темы форума</h3>
+        <h3>Разделы форума</h3>
         <ul>
-          <li><a href="#">Калькуляторы и разблокировщики</a></li>
-          <li><a href="#">Официальные прошивки</a></li>
-          <li><a href="#">Разбор прошивок, кастомы</a></li>
-          <li><a href="#">Русификация и локализация</a></li>
-          <li><a href="#">Создание карт kwi</a></li>
-          <li><a href="#">О железе</a></li>
+          <li><a href="http://forum.jpplayer.su/viewforum.php?f=3">Калькуляторы и разблокировщики</a></li>
+          <li><a href="http://forum.jpplayer.su/viewforum.php?f=6">Официальные прошивки</a></li>
+          <li><a href="http://forum.jpplayer.su/viewforum.php?f=7">Разбор прошивок, кастомы</a></li>
+          <li><a href="http://forum.jpplayer.su/viewforum.php?f=11">Создание карт kwi</a></li>
+          <li><a href="http://forum.jpplayer.su/viewforum.php?f=13">О железе</a></li>
         </ul>
       </div>
     </div>
@@ -128,15 +130,44 @@
 </footer>
 
 
-<script src="/js/angular.min.js"></script>
+
 <script src="js/uikit.min.js"></script>
 <script src="js/components/notify.js"></script>
+@if (!Auth::guest())
+<script src="/js/angular.min.js"></script>
 <script src="js/angular_pagination.js"></script>
 <script src="js/app.js"></script>
+@endif
 
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+  (function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+      try {
+        w.yaCounter31616958 = new Ya.Metrika({
+          id:31616958,
+          clickmap:true,
+          trackLinks:true,
+          accurateTrackBounce:true,
+          webvisor:true,
+          trackHash:true
+        });
+      } catch(e) { }
+    });
 
-<script>
+    var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = "https://mc.yandex.ru/metrika/watch.js";
 
+    if (w.opera == "[object Opera]") {
+      d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+  })(document, window, "yandex_metrika_callbacks");
 </script>
+<noscript><div><img src="https://mc.yandex.ru/watch/31616958" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
 </body>
 </html>

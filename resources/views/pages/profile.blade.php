@@ -86,7 +86,6 @@
                       </div>
                     </div>
                   </div>
-
                 </form>
               </div>
             </div>
@@ -115,10 +114,10 @@
                   <input type="checkbox" id="use-telegram-for-change-password" />
                   <label data-href="" for="use-telegram-for-change-password">Использовать telegram </label>
                 </p>
-                <a id="change-password-button">
-                  Сменить пароль
-                </a>
               </div>
+                <a class="custom-button" id="change-password-button">
+                    Сменить пароль
+                </a>
             </form>
             <article>
               <div>
@@ -133,21 +132,7 @@
   </div>
 
 
-  <div class="donat">
-    <h2 class="main-title">Поддержите развитие проекта</h2>
-    <div class="uk-container uk-container-center">
-      <div class="donat-article">
-        <article>
-          Все наработки сделаны участниками форума. Чтобы вынести <br>
-          свою лепту в развитие проекта учавствуйте в обсуждениях, <br>
-          делитесь своими наработками.
-        </article>
-        <article>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum iure minima nihil perferendis possimus quis, ratione voluptatum? Aspernatur dicta id, ipsum laborum magni modi soluta, sunt tempore ut velit, voluptates.
-        </article>
-      </div>
-    </div>
-  </div>
+  @include('partials.donate');
 
 
   {{--{{dump($data)}}--}}

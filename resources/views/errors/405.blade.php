@@ -3,12 +3,12 @@
 @section('content')
   <div class="about">
     <div class="uk-container uk-container-center">
-      <h2 >Страница не найдена</h2>
-      <h1 class="l-404">4 <span>0</span> 4</h1>
+      <h2 >Метод запрещен</h2>
+      <h1 class="l-404">4 <span>0</span> 5</h1>
       <div class="uk-grid">
       <div class="uk-width-small-1-1 uk-width-medium-1-5 uk-width-large-1-5"></div>
       <div class="uk-width-small-1-1 uk-width-medium-3-5 uk-width-large-3-5">
-        <h3 class="uk-center">Это значит что такой страницы не существует, вы перешли по устаревшей ссылке или неправильно набрали url адресс </h3>
+        <h3 class="uk-center">Это значит что эта страница сервисная и лезть сюда не следует</h3>
       </div>
       <div class="uk-width-small-1-1 uk-width-medium-1-5 uk-width-large-1-5"></div>
       </div>
