@@ -10,4 +10,5 @@ return [
   'token'=> env('TELEGRAM_TOKEN'),
   'ya_secret'=> env('YA_SECRET'),
   'ya_alert_to_telegram'=> env('YA_ALERT_TO_TELEGRAM'),
+  'web_hook'=> env('TELEGRAM_WEBHOOK'),
 ];

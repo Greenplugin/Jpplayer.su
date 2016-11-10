@@ -84,6 +84,6 @@ Route::group(['middleware' => ['guest']], function () {
 });
 
 /*Route::get('/home', 'HomeController@index');*/
-Route::get('/telegramx', 'TelegramApi@getWebHook');
-Route::post('/telegram-api/lk23jdsfu_LKkj54cxvbihl8-SD9j0hsd', 'TelegramApi@webHook');
+//Route::get('/telegramx', 'TelegramApi@getWebHook');
+Route::post('/telegram-api/'.config()->get('telegram.web_hook'), 'TelegramApi@webHook');
 
